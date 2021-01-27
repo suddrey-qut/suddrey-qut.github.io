@@ -196,9 +196,8 @@
 <h2 id="usage">Usage</h2>
 <h3 id="launching-the-driver">Launching the driver</h3>
 <p>The Panda Driver is launched by:</p>
-<pre><code class="console">roslaunch rv_panda_driver robot_bringup.launch
+<pre><code class="language-console">roslaunch rv_panda_driver robot_bringup.launch
 </code></pre>
-
 <p>When starting up the Panda robot:</p>
 <ul>
 <li>The lights indicate the status of the robot.<ul>
@@ -212,14 +211,13 @@
 <li>When the arm is E-stopped the robot can be moved freely using the wrist switch</li>
 </ul>
 <p>To ensure the arm is working once started you can invoke the home service.</p>
-<pre><code class="console">rosservice call /arm/home
+<pre><code class="language-console">rosservice call /arm/home
 </code></pre>
-
 <h3 id="moving-the-arm">Moving the arm</h3>
 <p>The Panda Driver provides a number of options for moving the robot arm. These include moving to fixed poses, as well as moving the arm by specifiying Cartesian velocities for the end-effector.</p>
 <h4 id="moving-the-end-effector-to-an-arbitrary-pose">Moving the End-Effector to an Arbitrary Pose</h4>
 <p>The following code example moves the robot end-effector to an arbitrary position and orientation w.r.t. to the robot's base frame.</p>
-<pre><code class="python">#!/usr/bin/env python2
+<pre><code class="language-python">#!/usr/bin/env python2
 
 import rospy
 import actionlib
@@ -255,10 +253,9 @@ goal = MoveToPoseGoal(goal_pose=target)
 client.send_goal(goal)
 client.wait_for_result()
 </code></pre>
-
 <h4 id="servoing-the-end-effector-to-an-arbitrary-pose">Servoing the End-Effector to an Arbitrary Pose</h4>
 <p>The following code example servos the robot end-effector to an arbitrary position and orientation w.r.t. to the robot's base frame.</p>
-<pre><code class="python">#!/usr/bin/env python2
+<pre><code class="language-python">#!/usr/bin/env python2
 
 import rospy
 import actionlib
@@ -294,10 +291,9 @@ goal = ServoToPoseGoal(stamped_pose=target, scaling=0.5)
 client.send_goal(goal)
 client.wait_for_result()
 </code></pre>
-
 <h4 id="controlling-end-effector-cartesian-velocity">Controlling End-Effector Cartesian Velocity</h4>
 <p>The following code example moves the robot end-effector at 2cm/s in the z-axis w.r.t. robot's base-frame for a total of 5 seconds. For safety reasons the driver has an expected minimum update frequency of 100Hz.</p>
-<pre><code class="python">#!/usr/bin/env python2
+<pre><code class="language-python">#!/usr/bin/env python2
 
 import rospy
 import timeit
@@ -327,7 +323,6 @@ while (timeit.default_timer() - start_timer) &lt; 5:
 # Publish an empty TwistStamped to ensure that the arm stops moving
 publisher.publish(TwistStamped())
 </code></pre>
-
 <h3 id="named-joint-configurations">Named Joint Configurations</h3>
 <p>In applications we typically define a number of task specific configurations, and it is convienent if these can be assigned names.</p>
 <p>While the MoveIt framework provide the ability to store joint configurations (called <em>named poses</em>), these must be defined in the MoveIt configuration of the robot and cannot be adjusted during operation.</p>
@@ -336,15 +331,13 @@ publisher.publish(TwistStamped())
 <p>To save the current joint configuration of the robot with the name <em>test_pose</em>:</p>
 <pre><code>rosservice call /arm/set_named_pose &quot;pose_name: 'test_pose' overwrite: false&quot;
 </code></pre>
-
 <h4 id="getting-named-poses">Getting Named Poses</h4>
 <p>To get the set of currently stored named joint configurations (created either through the driver or MoveIt)</p>
-<pre><code class="shell">rosservice call /arm/get_named_poses
+<pre><code class="language-shell">rosservice call /arm/get_named_poses
 </code></pre>
-
 <h4 id="moving-to-a-named-pose">Moving to a Named Pose</h4>
 <p>To move to a named named joint configuration:</p>
-<pre><code class="python">#!/usr/bin/env python2
+<pre><code class="language-python">#!/usr/bin/env python2
 
 import rospy
 import actionlib
@@ -362,7 +355,6 @@ client.wait_for_server()
 client.send_goal(MoveToNamedPoseGoal(pose_name='test_pose'))
 client.wait_for_result()
 </code></pre>
-
 <p><strong>Note:</strong> The goal pose can be a named pose created either by the driver or MoveIt. However, the named poses provided by the driver will take priority in the event of a naming conflict.</p>
 <h3 id="subscribed-topics">Subscribed Topics</h3>
 <ul>
